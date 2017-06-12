@@ -5,4 +5,4 @@ services:
     class: \Vainyl\Entity\Operation\Decorator\EventEntityOperationFactoryDecorator
     decorates: entity.factory
     decoration_priority: 1000
-    arguments: ['', '@collection.factory.sequence', '@event.dispatcher.collection']
+    arguments: ['@entity.factory.event.inner', '@collection.factory.sequence', '@event.dispatcher.collection']
