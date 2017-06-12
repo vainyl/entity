@@ -14,6 +14,7 @@ namespace Vainyl\Entity;
 
 use Vainyl\Core\ArrayInterface;
 use Vainyl\Core\NameableInterface;
+use Vainyl\Time\TimeInterface;
 
 /**
  * Interface EntityInterface
@@ -22,4 +23,13 @@ use Vainyl\Core\NameableInterface;
  */
 interface EntityInterface extends ArrayInterface, NameableInterface
 {
+    /**
+     * @return TimeInterface
+     */
+    public function createdAt() : TimeInterface;
+
+    /**
+     * @return TimeInterface
+     */
+    public function updatedAt() : TimeInterface;
 }
