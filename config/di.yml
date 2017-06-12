@@ -1,8 +1,10 @@
 services:
-  entity.factory:
+  entity.hydrator:
     synthetic: true
-  entity.factory.event:
-    class: \Vainyl\Entity\Operation\Decorator\EventEntityOperationFactoryDecorator
-    decorates: entity.factory
+  entity.operation.factory:
+    synthetic: true
+  entity.operation.factory.event:
+    class: Vainyl\Entity\Operation\Decorator\EventEntityOperationFactoryDecorator
+    decorates: entity.operation.factory
     decoration_priority: 1000
-    arguments: ['@entity.factory.event.inner', '@collection.factory.sequence', '@event.dispatcher.collection']
+    arguments: ['@entity.operation.factory.event.inner', '@collection.factory.sequence', '@event.dispatcher.collection']
