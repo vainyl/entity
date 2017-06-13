@@ -1,8 +1,8 @@
 services:
   entity.hydrator:
     synthetic: true
-  entity.operation.factory:
-    synthetic: true
+#  entity.operation.factory:
+#    synthetic: true
   entity.operation.factory.event:
     class: Vainyl\Entity\Operation\Decorator\EventEntityOperationFactoryDecorator
     decorates: entity.operation.factory
