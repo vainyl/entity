@@ -1,5 +1,5 @@
 services:
-  database.document:
+  database.entity:
     synthetic: true
   entity.hydrator:
     synthetic: true
