@@ -14,6 +14,7 @@ namespace Vainyl\Entity\Extension;
 
 use Symfony\Component\DependencyInjection\Alias;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Vainyl\Core\Exception\MissingRequiredServiceException;
 use Vainyl\Core\Extension\AbstractExtension;
 
 /**
@@ -31,13 +32,17 @@ class EntityExtension extends AbstractExtension
         $configuration = new EntityConfiguration();
         $documentConfiguration = $this->processConfiguration($configuration, $configs);
 
-        $container->removeDefinition('database.entity');
-        $container->removeDefinition('entity.operation.factory');
-        $container->setAlias('database.entity', new Alias('database.entity.' . $documentConfiguration['orm']));
-        $container->setAlias(
-            'entity.operation.factory',
-            new Alias('entity.operation.factory.' . $documentConfiguration['orm'])
-        );
+        $databaseId = 'database.entity.' . $documentConfiguration['orm'];
+        if (false === $container->hasDefinition($databaseId)) {
+            throw new MissingRequiredServiceException($container, $databaseId);
+        }
+        $factoryId = 'entity.operation.factory.' . $documentConfiguration['orm'];
+        if (false === $container->hasDefinition($databaseId)) {
+            throw new MissingRequiredServiceException($container, $factoryId);
+        }
+        $container->setAlias('database.entity', new Alias($databaseId));
+        $container->setAlias('entity.operation.factory', new Alias($factoryId));
+
 
         return parent::load($configs, $container);
     }
