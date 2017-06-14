@@ -40,8 +40,8 @@ class EntityExtension extends AbstractExtension
         $configuration = new EntityConfiguration();
         $documentConfiguration = $this->processConfiguration($configuration, $configs);
 
-        $databaseId = 'database.entity.' . $documentConfiguration['orm'];
-        $factoryId = 'entity.operation.factory.' . $documentConfiguration['orm'];
+        $databaseId = 'database.' . $documentConfiguration['database'];
+        $factoryId = 'entity.operation.factory.' . $documentConfiguration['factory'];
         $container->setAlias('database.entity', new Alias($databaseId));
         $container->setAlias('entity.operation.factory', new Alias($factoryId));
 

@@ -32,7 +32,8 @@ class EntityConfiguration implements ConfigurationInterface
 
         $rootNode
             ->children()
-                ->scalarNode('orm')->end()
+                ->scalarNode('database')->end()
+                ->scalarNode('factory')->end()
             ->end()
         ;
 
