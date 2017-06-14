@@ -36,7 +36,7 @@ class EntityExtension extends AbstractExtension
         $container->setAlias('database.entity', new Alias('database.entity.' . $documentConfiguration['orm']));
         $container->setAlias(
             'entity.operation.factory',
-            new Alias('entity.operation.factory' . $documentConfiguration['orm'])
+            new Alias('entity.operation.factory.' . $documentConfiguration['orm'])
         );
 
         return parent::load($configs, $container);
