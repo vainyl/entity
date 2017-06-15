@@ -14,6 +14,7 @@ namespace Vainyl\Entity\Extension;
 
 use Symfony\Component\DependencyInjection\Alias;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Vainyl\Core\Extension\AbstractFrameworkExtension;
 use Vainyl\Core\Extension\AbstractExtension;
 
 /**
@@ -21,7 +22,7 @@ use Vainyl\Core\Extension\AbstractExtension;
  *
  * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
  */
-class EntityExtension extends AbstractExtension
+class EntityExtension extends AbstractFrameworkExtension
 {
 
     /**
