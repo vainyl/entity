@@ -38,6 +38,8 @@ class EntityExtension extends AbstractFrameworkExtension
      */
     public function load(array $configs, ContainerBuilder $container): AbstractExtension
     {
+        parent::load($configs, $container);
+
         $configuration = new EntityConfiguration();
         $documentConfiguration = $this->processConfiguration($configuration, $configs);
 
@@ -47,6 +49,6 @@ class EntityExtension extends AbstractFrameworkExtension
         $container->setAlias('entity.operation.factory', new Alias($factoryId));
 
 
-        return parent::load($configs, $container);
+        return $this;
     }
 }
