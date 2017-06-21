@@ -24,12 +24,26 @@ use Vainyl\Time\TimeInterface;
 interface EntityInterface extends ArrayInterface, NameableInterface
 {
     /**
-     * @return TimeInterface
+     * @param TimeInterface $time
+     *
+     * @return EntityInterface
      */
-    public function createdAt() : TimeInterface;
+    public function setCreatedAt(TimeInterface $time): EntityInterface;
+
+    /**
+     * @param TimeInterface $time
+     *
+     * @return EntityInterface
+     */
+    public function setUpdatedAt(TimeInterface $time): EntityInterface;
 
     /**
      * @return TimeInterface
      */
-    public function updatedAt() : TimeInterface;
+    public function createdAt(): ?TimeInterface;
+
+    /**
+     * @return TimeInterface
+     */
+    public function updatedAt(): ?TimeInterface;
 }
