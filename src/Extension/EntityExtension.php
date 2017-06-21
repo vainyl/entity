@@ -45,7 +45,7 @@ class EntityExtension extends AbstractFrameworkExtension
 
         $databaseId = 'database.' . $documentConfiguration['database'];
         $factoryId = 'entity.operation.factory.' . $documentConfiguration['factory'];
-        $hydratorId = 'entity.factory.' . $documentConfiguration['hydrator'];
+        $hydratorId = 'entity.hydrator.' . $documentConfiguration['hydrator'];
         $container->setAlias('database.entity', new Alias($databaseId));
         $container->setAlias('entity.operation.factory', new Alias($factoryId));
         $container->setAlias('entity.hydrator', new Alias($hydratorId));
