@@ -55,10 +55,10 @@ class TimestampEntityOperationFactoryDecorator extends AbstractEntityOperationFa
     {
         return $this->collectionFactory
             ->create()
-            ->add(parent::create($entity))
             ->add(
                 new SetCreatedAtOperation($entity, $this->timeProvider->getCurrentTime())
-            );
+            )
+            ->add(parent::create($entity));
     }
 
     /**
@@ -68,10 +68,10 @@ class TimestampEntityOperationFactoryDecorator extends AbstractEntityOperationFa
     {
         return $this->collectionFactory
             ->create()
-            ->add(parent::update($newEntity, $oldEntity))
             ->add(
                 new SetUpdatedAtOperation($newEntity, $this->timeProvider->getCurrentTime())
-            );
+            )
+            ->add(parent::update($newEntity, $oldEntity));
     }
 
     /**
@@ -79,9 +79,7 @@ class TimestampEntityOperationFactoryDecorator extends AbstractEntityOperationFa
      */
     public function upsert(EntityInterface $entity): OperationInterface
     {
-        $collection = $this->collectionFactory
-            ->create()
-            ->add(parent::upsert($entity));
+        $collection = $this->collectionFactory->create();
         if (null === $entity->createdAt()) {
             $collection->add(new SetCreatedAtOperation($entity, $this->timeProvider->getCurrentTime()));
         }
@@ -90,6 +88,6 @@ class TimestampEntityOperationFactoryDecorator extends AbstractEntityOperationFa
             $collection->add(new SetUpdatedAtOperation($entity, $this->timeProvider->getCurrentTime()));
         }
 
-        return $collection;
+        return $collection->add(parent::upsert($entity));
     }
 }

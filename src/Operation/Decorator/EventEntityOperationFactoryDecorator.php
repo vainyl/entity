@@ -58,9 +58,10 @@ class EventEntityOperationFactoryDecorator extends AbstractEntityOperationFactor
     {
         return $this->collectionFactory
             ->create()
-            ->add(parent::create($entity))->add(
+            ->add(
                 new DispatchEventOperation($this->eventDispatcher, new CreateEntityEvent($entity))
-            );
+            )
+            ->add(parent::create($entity));
     }
 
     /**
@@ -70,9 +71,10 @@ class EventEntityOperationFactoryDecorator extends AbstractEntityOperationFactor
     {
         return $this->collectionFactory
             ->create()
-            ->add(parent::update($newEntity, $oldEntity))->add(
+            ->add(
                 new DispatchEventOperation($this->eventDispatcher, new UpdateEntityEvent($newEntity, $oldEntity))
-            );
+            )
+            ->add(parent::update($newEntity, $oldEntity));
     }
 
     /**
@@ -82,9 +84,10 @@ class EventEntityOperationFactoryDecorator extends AbstractEntityOperationFactor
     {
         return $this->collectionFactory
             ->create()
-            ->add(parent::delete($entity))->add(
+            ->add(
                 new DispatchEventOperation($this->eventDispatcher, new DeleteEntityEvent($entity))
-            );
+            )
+            ->add(parent::delete($entity));
     }
 
     /**
@@ -94,8 +97,9 @@ class EventEntityOperationFactoryDecorator extends AbstractEntityOperationFactor
     {
         return $this->collectionFactory
             ->create()
-            ->add(parent::upsert($entity))->add(
+            ->add(
                 new DispatchEventOperation($this->eventDispatcher, new UpsertEntityEvent($entity))
-            );
+            )
+            ->add(parent::upsert($entity));
     }
 }
