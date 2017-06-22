@@ -14,8 +14,8 @@ namespace Vainyl\Entity\Extension;
 
 use Symfony\Component\DependencyInjection\Alias;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Vainyl\Core\Extension\AbstractFrameworkExtension;
 use Vainyl\Core\Extension\AbstractExtension;
+use Vainyl\Core\Extension\AbstractFrameworkExtension;
 
 /**
  * Class EntityExtension
@@ -24,7 +24,6 @@ use Vainyl\Core\Extension\AbstractExtension;
  */
 class EntityExtension extends AbstractFrameworkExtension
 {
-
     /**
      * @inheritDoc
      */
@@ -44,12 +43,11 @@ class EntityExtension extends AbstractFrameworkExtension
         $documentConfiguration = $this->processConfiguration($configuration, $configs);
 
         $databaseId = 'database.' . $documentConfiguration['database'];
-        $factoryId = 'entity.operation.factory.' . $documentConfiguration['factory'];
-        $hydratorId = 'entity.factory.' . $documentConfiguration['factory'];
+        $operationId = 'entity.operation.factory.' . $documentConfiguration['factory'];
+        $factoryId = 'entity.factory.' . $documentConfiguration['factory'];
         $container->setAlias('database.entity', new Alias($databaseId));
-        $container->setAlias('entity.operation.factory', new Alias($factoryId));
-        $container->setAlias('entity.factory', new Alias($hydratorId));
-
+        $container->setAlias('entity.operation.factory', new Alias($operationId));
+        $container->setAlias('entity.factory', new Alias($factoryId));
 
         return $this;
     }
