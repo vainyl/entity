@@ -12,6 +12,7 @@ declare(strict_types=1);
 
 namespace Vainyl\Entity\Hydrator;
 
+use Vainyl\Core\IdentifiableInterface;
 use Vainyl\Entity\EntityInterface;
 
 /**
@@ -19,7 +20,7 @@ use Vainyl\Entity\EntityInterface;
  *
  * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
  */
-interface EntityHydratorInterface
+interface EntityHydratorInterface extends IdentifiableInterface
 {
     /**
      * @param string $name
