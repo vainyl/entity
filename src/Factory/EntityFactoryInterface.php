@@ -28,5 +28,5 @@ interface EntityFactoryInterface extends IdentifiableInterface
      *
      * @return EntityInterface
      */
-    public function create(string $name, array $entityData) : EntityInterface;
+    public function create(string $name, array $entityData = []) : EntityInterface;
 }
