@@ -26,16 +26,16 @@ interface EntityInterface extends ArrayInterface, NameableInterface
     /**
      * @param TimeInterface $time
      *
-     * @return EntityInterface
+     * @return ArrayInterface
      */
-    public function setCreatedAt(TimeInterface $time): EntityInterface;
+    public function setCreatedAt(TimeInterface $time): ArrayInterface;
 
     /**
      * @param TimeInterface $time
      *
-     * @return EntityInterface
+     * @return ArrayInterface
      */
-    public function setUpdatedAt(TimeInterface $time): EntityInterface;
+    public function setUpdatedAt(TimeInterface $time): ArrayInterface;
 
     /**
      * @return TimeInterface
