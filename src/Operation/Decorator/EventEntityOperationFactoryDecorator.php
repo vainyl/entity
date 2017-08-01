@@ -12,6 +12,7 @@ declare(strict_types=1);
 
 namespace Vainyl\Entity\Operation\Decorator;
 
+use Vainyl\Domain\DomainInterface;
 use Vainyl\Entity\EntityInterface;
 use Vainyl\Entity\Event\CreateEntityEvent;
 use Vainyl\Entity\Event\DeleteEntityEvent;
@@ -52,54 +53,63 @@ class EventEntityOperationFactoryDecorator extends AbstractEntityOperationFactor
     }
 
     /**
-     * @inheritDoc
+     * @param EntityInterface $domain
+     *
+     * @return OperationInterface
      */
-    public function create(EntityInterface $entity): OperationInterface
+    public function create(DomainInterface $domain): OperationInterface
     {
         return $this->collectionFactory
             ->create()
             ->add(
-                new DispatchEventOperation($this->eventDispatcher, new CreateEntityEvent($entity))
+                new DispatchEventOperation($this->eventDispatcher, new CreateEntityEvent($domain))
             )
-            ->add(parent::create($entity));
+            ->add(parent::create($domain));
     }
 
     /**
-     * @inheritDoc
+     * @param EntityInterface $domain
+     *
+     * @return OperationInterface
      */
-    public function update(EntityInterface $newEntity, EntityInterface $oldEntity): OperationInterface
+    public function delete(DomainInterface $domain): OperationInterface
     {
         return $this->collectionFactory
             ->create()
             ->add(
-                new DispatchEventOperation($this->eventDispatcher, new UpdateEntityEvent($newEntity, $oldEntity))
+                new DispatchEventOperation($this->eventDispatcher, new DeleteEntityEvent($domain))
             )
-            ->add(parent::update($newEntity, $oldEntity));
+            ->add(parent::delete($domain));
     }
 
     /**
-     * @inheritDoc
+     * @param EntityInterface $newDomain
+     * @param EntityInterface $oldDomain
+     *
+     * @return OperationInterface
      */
-    public function delete(EntityInterface $entity): OperationInterface
+    public function update(DomainInterface $newDomain, DomainInterface $oldDomain): OperationInterface
     {
         return $this->collectionFactory
             ->create()
             ->add(
-                new DispatchEventOperation($this->eventDispatcher, new DeleteEntityEvent($entity))
+                new DispatchEventOperation($this->eventDispatcher, new UpdateEntityEvent($newDomain, $oldDomain))
             )
-            ->add(parent::delete($entity));
+            ->add(parent::update($newDomain, $oldDomain));
     }
 
     /**
-     * @inheritDoc
+     * @param EntityInterface $domain
+     *
+     * @return OperationInterface
      */
-    public function upsert(EntityInterface $entity): OperationInterface
+    public function upsert(DomainInterface $domain): OperationInterface
     {
         return $this->collectionFactory
             ->create()
             ->add(
-                new DispatchEventOperation($this->eventDispatcher, new UpsertEntityEvent($entity))
+                new DispatchEventOperation($this->eventDispatcher, new UpsertEntityEvent($domain))
             )
-            ->add(parent::upsert($entity));
+            ->add(parent::upsert($domain));
     }
 }
