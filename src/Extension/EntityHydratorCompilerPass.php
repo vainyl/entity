@@ -34,14 +34,14 @@ class EntityHydratorCompilerPass implements CompilerPassInterface
             throw new MissingRequiredServiceException($container, 'entity.registry');
         }
 
-        $containerDefinition = $container->getDefinition('entity.registry');
+        $registryDefinition = $container->getDefinition('entity.registry');
         foreach ($container->findTaggedServiceIds('entity.hydrator') as $id => $tags) {
             foreach ($tags as $attributes) {
                 if (false === array_key_exists('alias', $attributes)) {
                     throw new MissingRequiredFieldException($container, $id, $attributes, 'alias');
                 }
 
-                $containerDefinition
+                $registryDefinition
                     ->addMethodCall('addHydrator', [$attributes['alias'], new Reference($id)]);
             }
         }
