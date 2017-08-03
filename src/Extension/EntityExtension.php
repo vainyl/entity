@@ -29,7 +29,11 @@ class EntityExtension extends AbstractFrameworkExtension
      */
     public function getCompilerPasses(): array
     {
-        return [];
+        return [
+            new EntityDatabaseCompilerPass(),
+            new EntityHydratorCompilerPass(),
+            new EntityOperationFactoryCompilerPass(),
+        ];
     }
 
     /**
