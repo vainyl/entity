@@ -30,7 +30,6 @@ class EntityExtension extends AbstractFrameworkExtension
     public function getCompilerPasses(): array
     {
         return [
-            new EntityDatabaseCompilerPass(),
             new EntityHydratorCompilerPass(),
             new EntityOperationFactoryCompilerPass(),
         ];
@@ -69,8 +68,7 @@ class EntityExtension extends AbstractFrameworkExtension
 
         $container
             ->findDefinition('database.entity')
-            ->replaceArgument(0, sprintf('database.entity.%s', $entityConfiguration['database']))
-            ->addTag('entity.database', ['alias' => $entityConfiguration['database']]);
+            ->replaceArgument(0, sprintf('database.%s', $entityConfiguration['database']));
 
         return $this;
     }

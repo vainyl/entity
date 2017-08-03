@@ -24,13 +24,6 @@ use Vainyl\Entity\Operation\Factory\EntityOperationFactoryInterface;
  */
 interface EntityRegistryInterface extends StorageInterface
 {
-    /**
-     * @param string            $alias
-     * @param DatabaseInterface $database
-     *
-     * @return EntityRegistryInterface
-     */
-    public function addDatabase(string $alias, DatabaseInterface $database): EntityRegistryInterface;
 
     /**
      * @param string                          $alias
