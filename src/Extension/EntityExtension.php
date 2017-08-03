@@ -68,7 +68,8 @@ class EntityExtension extends AbstractFrameworkExtension
         }
 
         $databaseDefinition = $container->findDefinition('database.entity');
-        $databaseDefinition->replaceArgument(0, sprintf('database.entity.%', $documentConfiguration['database']));
+        $databaseDefinition
+            ->replaceArgument(0, sprintf('database.entity.%', $documentConfiguration['database']));
 
         return $this;
     }
