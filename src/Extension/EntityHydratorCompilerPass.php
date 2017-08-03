@@ -12,18 +12,18 @@ declare(strict_types=1);
 
 namespace Vainyl\Entity\Extension;
 
-use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 use Vainyl\Core\Exception\MissingRequiredFieldException;
 use Vainyl\Core\Exception\MissingRequiredServiceException;
+use Vainyl\Core\Extension\AbstractCompilerPass;
 
 /**
  * Class EntityHydratorCompilerPass
  *
  * @author Taras P. Girnyk <taras.p.gyrnik@gmail.com>
  */
-class EntityHydratorCompilerPass implements CompilerPassInterface
+class EntityHydratorCompilerPass extends AbstractCompilerPass
 {
     /**
      * @inheritDoc
