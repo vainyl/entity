@@ -48,7 +48,7 @@ class EntityExtension extends AbstractFrameworkExtension
         }
 
         $configuration = new EntityConfiguration();
-        $documentConfiguration = $this->processConfiguration($configuration, $configs);
+        $entityConfiguration = $this->processConfiguration($configuration, $configs);
 
         if (false === $container->hasDefinition('entity.operation.factory')) {
             throw new MissingRequiredServiceException($container, 'entity.operation.factory');
@@ -56,21 +56,21 @@ class EntityExtension extends AbstractFrameworkExtension
         $factoryDefinition = $container->findDefinition('entity.operation.factory');
         $factoryDefinition->replaceArgument(
             0,
-            sprintf('entity.operation.factory.%', $documentConfiguration['factory'])
+            sprintf('entity.operation.factory.%', $entityConfiguration['factory'])
         );
         if (false === $container->hasDefinition('entity.hydrator')) {
             throw new MissingRequiredServiceException($container, 'entity.hydrator');
         }
         $hydratorDefinition = $container->findDefinition('entity.hydrator');
-        $hydratorDefinition->replaceArgument(0, sprintf('entity.hydrator.%', $documentConfiguration['factory']));
+        $hydratorDefinition->replaceArgument(0, sprintf('entity.hydrator.%', $entityConfiguration['factory']));
         if (false === $container->hasDefinition('database.entity')) {
             throw new MissingRequiredServiceException($container, 'database.entity');
         }
 
         $container
             ->findDefinition('database.entity')
-            ->replaceArgument(0, sprintf('database.entity.%', $documentConfiguration['database']))
-            ->addTag('database.entity', ['alias' => $documentConfiguration['database']]);
+            ->replaceArgument(0, sprintf('database.entity.%s', $entityConfiguration['database']))
+            ->addTag('entity.database', ['alias' => $entityConfiguration['database']]);
 
         return $this;
     }
