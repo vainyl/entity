@@ -24,7 +24,6 @@ use Vainyl\Entity\Operation\Factory\EntityOperationFactoryInterface;
  */
 interface EntityRegistryInterface extends StorageInterface
 {
-
     /**
      * @param string                          $alias
      * @param EntityOperationFactoryInterface $factory

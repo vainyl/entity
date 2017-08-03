@@ -32,10 +32,9 @@ class EntityConfiguration implements ConfigurationInterface
 
         $rootNode
             ->children()
-                ->scalarNode('database')->end()
-                ->scalarNode('factory')->end()
-            ->end()
-        ;
+            ->scalarNode('database')->end()
+            ->scalarNode('factory')->end()
+            ->end();
 
         return $treeBuilder;
     }
