@@ -1,4 +1,19 @@
 services:
+  entity.registry:
+    class: Vainyl\Entity\Registry\EntityRegistry
+    arguments: ['@storage.prototype']
+  entity.operation.factory:
+    factory: ['@entity.registry', 'getFactory']
+    arguments:
+      - 'factory'
+  entity.hydrator:
+    factory: ['@entity.registry', 'getHydrator']
+    arguments:
+      - 'hydrator'
+  database.entity:
+    factory: ['@entity.registry', 'getDatabase']
+    arguments:
+      - 'database'
   entity.operation.factory.event:
     class: Vainyl\Entity\Operation\Decorator\EventEntityOperationFactoryDecorator
     decorates: entity.operation.factory
