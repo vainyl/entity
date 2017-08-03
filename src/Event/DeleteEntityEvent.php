@@ -28,19 +28,11 @@ class DeleteEntityEvent extends AbstractIdentifiable implements EventInterface
     /**
      * UpdateEntityEvent constructor.
      *
-     * @param EntityInterface $oldEntity
+     * @param EntityInterface $entity
      */
-    public function __construct(EntityInterface $oldEntity)
+    public function __construct(EntityInterface $entity)
     {
-        $this->entity = $oldEntity;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getName(): string
-    {
-        return $this->entity->getName() . '.' . 'delete';
+        $this->entity = $entity;
     }
 
     /**
@@ -49,5 +41,13 @@ class DeleteEntityEvent extends AbstractIdentifiable implements EventInterface
     public function getEntity(): EntityInterface
     {
         return $this->entity;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getName(): string
+    {
+        return sprintf('entity.%s.delete', $this->entity->getName());
     }
 }

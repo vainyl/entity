@@ -36,18 +36,18 @@ class UpsertEntityEvent extends AbstractIdentifiable implements EventInterface
     }
 
     /**
-     * @inheritDoc
-     */
-    public function getName(): string
-    {
-        return $this->entity->getName() . '.' . 'upsert';
-    }
-
-    /**
      * @return EntityInterface
      */
     public function getEntity(): EntityInterface
     {
         return $this->entity;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getName(): string
+    {
+        return sprintf('entity.%s.upsert', $this->entity->getName());
     }
 }
