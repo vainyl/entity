@@ -19,8 +19,6 @@ services:
     factory: ['@entity.registry', 'getDatabase']
     arguments:
       - 'database'
-    tags:
-      - {name: domain.storage, alias: entity}
   entity.operation.factory.event:
     class: Vainyl\Entity\Operation\Decorator\EventEntityOperationFactoryDecorator
     decorates: entity.operation.factory
