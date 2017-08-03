@@ -53,15 +53,13 @@ class EntityExtension extends AbstractFrameworkExtension
             throw new MissingRequiredServiceException($container, 'entity.operation.factory');
         }
         $factoryDefinition = $container->findDefinition('entity.operation.factory');
-        $factoryDefinition->replaceArgument(
-            0,
-            sprintf('entity.operation.factory.%s', $entityConfiguration['factory'])
-        );
+        $factoryDefinition->replaceArgument(0, $entityConfiguration['factory']);
+
         if (false === $container->hasDefinition('entity.hydrator')) {
             throw new MissingRequiredServiceException($container, 'entity.hydrator');
         }
         $hydratorDefinition = $container->findDefinition('entity.hydrator');
-        $hydratorDefinition->replaceArgument(0, sprintf('entity.hydrator.%s', $entityConfiguration['factory']));
+        $hydratorDefinition->replaceArgument(0, $entityConfiguration['factory']);
         if (false === $container->hasDefinition('database.entity')) {
             throw new MissingRequiredServiceException($container, 'database.entity');
         }
