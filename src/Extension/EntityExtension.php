@@ -12,8 +12,8 @@ declare(strict_types=1);
 
 namespace Vainyl\Entity\Extension;
 
-use Symfony\Component\DependencyInjection\Alias;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Vainyl\Core\Exception\MissingRequiredServiceException;
 use Vainyl\Core\Extension\AbstractExtension;
 use Vainyl\Core\Extension\AbstractFrameworkExtension;
 
@@ -29,7 +29,10 @@ class EntityExtension extends AbstractFrameworkExtension
      */
     public function getCompilerPasses(): array
     {
-        return [];
+        return [
+            new EntityHydratorCompilerPass(),
+            new EntityOperationFactoryCompilerPass(),
+        ];
     }
 
     /**
@@ -39,15 +42,31 @@ class EntityExtension extends AbstractFrameworkExtension
     {
         parent::load($configs, $container);
 
-        $configuration = new EntityConfiguration();
-        $documentConfiguration = $this->processConfiguration($configuration, $configs);
+        if (false === $container->hasDefinition('entity.registry')) {
+            throw new MissingRequiredServiceException($container, 'entity.registry');
+        }
 
-        $databaseId = 'database.' . $documentConfiguration['database'];
-        $operationId = 'entity.operation.factory.' . $documentConfiguration['factory'];
-        $hydratorId = 'entity.hydrator.' . $documentConfiguration['factory'];
-        $container->setAlias('database.entity', new Alias($databaseId));
-        $container->setAlias('entity.operation.factory', new Alias($operationId));
-        $container->setAlias('entity.hydrator', new Alias($hydratorId));
+        $configuration = new EntityConfiguration();
+        $entityConfiguration = $this->processConfiguration($configuration, $configs);
+
+        if (false === $container->hasDefinition('entity.operation.factory')) {
+            throw new MissingRequiredServiceException($container, 'entity.operation.factory');
+        }
+        $factoryDefinition = $container->findDefinition('entity.operation.factory');
+        $factoryDefinition->replaceArgument(0, $entityConfiguration['factory']);
+
+        if (false === $container->hasDefinition('entity.hydrator')) {
+            throw new MissingRequiredServiceException($container, 'entity.hydrator');
+        }
+        $hydratorDefinition = $container->findDefinition('entity.hydrator');
+        $hydratorDefinition->replaceArgument(0, $entityConfiguration['factory']);
+        if (false === $container->hasDefinition('database.entity')) {
+            throw new MissingRequiredServiceException($container, 'database.entity');
+        }
+
+        $container
+            ->findDefinition('database.entity')
+            ->replaceArgument(0, sprintf('database.%s', $entityConfiguration['database']));
 
         return $this;
     }

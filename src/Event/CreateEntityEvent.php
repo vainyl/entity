@@ -36,18 +36,18 @@ class CreateEntityEvent extends AbstractIdentifiable implements EventInterface
     }
 
     /**
-     * @inheritDoc
-     */
-    public function getName(): string
-    {
-        return $this->entity->getName() . '.' . 'create';
-    }
-
-    /**
      * @return EntityInterface
      */
     public function getEntity()
     {
         return $this->entity;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getName(): string
+    {
+        return sprintf('entity.%s.create', $this->entity->getName());
     }
 }

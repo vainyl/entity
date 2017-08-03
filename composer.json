@@ -14,10 +14,18 @@
     },
     "require": {
         "php": ">=7.1",
+<<<<<<< HEAD
         "vainyl/core": "dev-master",
         "vainyl/domain": "dev-master",
         "vainyl/event": "dev-master",
         "vainyl/operation": "dev-master"
+=======
+        "vainyl/core": "dev-master",
+        "vainyl/database": "dev-master",
+        "vainyl/domain": "dev-master",
+        "vainyl/event": "dev-master",
+        "vainyl/operation": "dev-master"
+>>>>>>> 0.1.x
     },
     "repositories": [
         {

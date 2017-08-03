@@ -44,7 +44,7 @@ class UpdateEntityEvent extends AbstractIdentifiable implements EventInterface
      */
     public function getName(): string
     {
-        return $this->newEntity->getName() . '.' . 'create';
+        return sprintf('entity.%s.update', $this->newEntity->getName());
     }
 
     /**
