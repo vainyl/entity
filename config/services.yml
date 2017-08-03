@@ -6,14 +6,21 @@ services:
     factory: ['@entity.registry', 'getFactory']
     arguments:
       - 'factory'
+    tags:
+      - {name: 'domain.operation.factory', alias: entity}
   entity.hydrator:
     factory: ['@entity.registry', 'getHydrator']
     arguments:
       - 'hydrator'
+    tags:
+      - {name: hydrator, alias: entity}
+      - {name: domain.hydrator, alias: entity}
   database.entity:
     factory: ['@entity.registry', 'getDatabase']
     arguments:
       - 'database'
+    tags:
+      - {name: 'domain.storage', alias: entity}
   entity.operation.factory.event:
     class: Vainyl\Entity\Operation\Decorator\EventEntityOperationFactoryDecorator
     decorates: entity.operation.factory

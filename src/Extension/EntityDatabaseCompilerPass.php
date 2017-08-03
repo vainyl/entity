@@ -34,7 +34,7 @@ class EntityDatabaseCompilerPass implements CompilerPassInterface
             throw new MissingRequiredServiceException($container, 'entity.registry');
         }
 
-        $containerDefinition = $container->getDefinition('entity.database');
+        $containerDefinition = $container->getDefinition('entity.registry');
         foreach ($container->findTaggedServiceIds('entity.database') as $id => $tags) {
             foreach ($tags as $attributes) {
                 if (false === array_key_exists('alias', $attributes)) {
