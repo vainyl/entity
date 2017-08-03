@@ -67,9 +67,10 @@ class EntityExtension extends AbstractFrameworkExtension
             throw new MissingRequiredServiceException($container, 'database.entity');
         }
 
-        $databaseDefinition = $container->findDefinition('database.entity');
-        $databaseDefinition
-            ->replaceArgument(0, sprintf('database.entity.%', $documentConfiguration['database']));
+        $container
+            ->findDefinition('database.entity')
+            ->replaceArgument(0, sprintf('database.entity.%', $documentConfiguration['database']))
+            ->addTag('database.entity', ['alias' => $documentConfiguration['database']]);
 
         return $this;
     }

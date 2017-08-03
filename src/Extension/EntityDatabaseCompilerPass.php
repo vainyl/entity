@@ -34,14 +34,14 @@ class EntityDatabaseCompilerPass implements CompilerPassInterface
             throw new MissingRequiredServiceException($container, 'entity.registry');
         }
 
-        $containerDefinition = $container->getDefinition('entity.registry');
+        $registryDefinition = $container->getDefinition('entity.registry');
         foreach ($container->findTaggedServiceIds('entity.database') as $id => $tags) {
             foreach ($tags as $attributes) {
                 if (false === array_key_exists('alias', $attributes)) {
                     throw new MissingRequiredFieldException($container, $id, $attributes, 'alias');
                 }
 
-                $containerDefinition
+                $registryDefinition
                     ->addMethodCall('addDatabase', [$attributes['alias'], new Reference($id)]);
             }
         }
