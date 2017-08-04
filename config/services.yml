@@ -1,7 +1,7 @@
 services:
   entity.registry:
     class: Vainyl\Entity\Registry\EntityRegistry
-    arguments: ['@storage.prototype', '@app.di']
+    arguments: ['@map.prototype', '@app.di']
   entity.operation.factory:
     factory: ['@entity.registry', 'getFactory']
     arguments:
