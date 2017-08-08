@@ -30,8 +30,8 @@ class EntityExtension extends AbstractFrameworkExtension
     public function getCompilerPasses(): array
     {
         return [
-            new EntityHydratorCompilerPass(),
-            new EntityOperationFactoryCompilerPass(),
+            [new EntityHydratorCompilerPass()],
+            [new EntityOperationFactoryCompilerPass()],
         ];
     }
 
