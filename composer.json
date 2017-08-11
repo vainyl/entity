@@ -26,6 +26,9 @@
             "url": "https://satis.vainyl.com:444"
         }
     ],
+    "suggest" : {
+        "vainyl/doctrine-orm-bridge" : "Doctrine relational entities with domain support"
+    },
     "prefer-stable": true,
     "minimum-stability": "dev"
 }
