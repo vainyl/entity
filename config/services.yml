@@ -13,7 +13,7 @@ services:
     arguments:
       - 'hydrator'
     tags:
-      - {name: hydrator, alias: entity}
+      - {name: hydrator, alias: entity, default: true}
       - {name: domain.hydrator, alias: entity}
   database.entity:
     factory: ['@entity.registry', 'getDatabase']
